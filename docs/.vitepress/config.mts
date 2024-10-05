@@ -4,6 +4,7 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: "我的全部",
   description: "我的知识库",
+  base: '/all-my-life/',
   themeConfig: {
     logo: '/images/logo.jpg',
     // https://vitepress.dev/reference/default-theme-config
