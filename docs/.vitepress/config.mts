@@ -6,7 +6,7 @@ export default defineConfig({
   description: "我的知识库",
   base: '/all-my-life/',
   themeConfig: {
-    logo: '/images/logo.jpg',
+    logo: '/logo.jpg',
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       // { text: '我的全部', link: '/' },
