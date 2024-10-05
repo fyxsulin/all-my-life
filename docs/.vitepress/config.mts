@@ -80,7 +80,14 @@ export default defineConfig({
                 {
                   text: '读书笔记',
                   items: [
-                    { text: '《剑指Vue3--从入门到实践》', link: '/study/vue/' },
+                    {
+                      text: '读剑指Vue3',
+                      items: [
+                        {
+                          text: "第一章 Vue.js概述", link: "/study/Vue/reading-line/剑指Vue3/第一章-VueJs概念"
+                        }
+                      ]
+                    },
                   ]
                 },
               ]
