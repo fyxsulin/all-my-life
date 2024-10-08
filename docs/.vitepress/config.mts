@@ -97,7 +97,7 @@ export default defineConfig({
               text: 'Rust',
               collapsed: true,
               items: [
-                { text: 'Rust', link: '/study/rust/' }
+                { text: 'Rust needs an extended standard library', link: '/study/Rust/Rust-needs-an-extended-standard-library' }
               ]
             },
             {
