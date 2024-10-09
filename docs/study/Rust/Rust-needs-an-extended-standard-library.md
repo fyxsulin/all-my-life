@@ -86,6 +86,54 @@ Finally, level 0, where we can start to actually build on solid foundations: Sec
 When it comes to supply chain security, Secure by Design means reducing the number of external dependencies, and, maybe more importantly, the number of people who can commit code in your own codebase (via your dependencies). <br />
 <span style="background-color: #FFFF00;">`在供应链安全方面，设计时安全意味着减少外部依赖的数量，也许更重要的是，减少可以在你的代码库中提交代码的人数（通过你的依赖项）`</span>
 
+Secure by Design means that it's hard to introduce uninvited code in your projects and that we have effective controls in place to prevent backdoored dependencies. <br />
+<span style="background-color: #FFFF00;">`设计时安全意味着在你的项目中很难引入未被邀请的代码，并且我们有有效的控制措施来防止后门依赖的出现。`</span>
+
+## The (obvious) solution(（显而易见的）解决方案)
+
+Rust needs an extended standard library. <br />
+<span style="background-color: #FFFF00;">`Rust 需要一个扩展的标准库。`</span>
+
+All other major programming languages and ecosystems have internalized this fact and provide solid and secure foundations to their developers. Go is paving the way, with deno and zig following closely.<br />
+<span style="background-color: #FFFF00;">`其他主要编程语言和生态系统都已经内化了这一事实，为开发者提供了稳固和安全的基础。Go 正在开辟道路，Deno 和 Zig 也紧随其后。`</span>
+
+The extended standard library, let's call it stdx, should be independent of the language so it can evolves at its own pace and make breaking changes when it's required.<br />
+<span style="background-color: #FFFF00;">`扩展的标准库，我们称之为 stdx，应该独立于语言，这样它可以按照自己的节奏发展，并在需要时进行重大更改。`</span>
+
+This extended standard library could be a monorepo with a cargo workspace under the rust-lang GitHub organization composed of many crates that most developers need on an daily basis.<br />
+<span style="background-color: #FFFF00;">`为了确保这个扩展的标准库的安全性，最重要的是它不应使用除 stdx 包和 Rust 标准库以外的任何依赖。`</span>
+
+stdx would not only contain high-quality and robust implementations that are "good enough" for most situations (and developers are free to use third-party packages if they have special needs) but it would also be a common ground that all Rust developers can use and master, instead of having to deal with completely random packages that do the same thing but with a different API when jumping from one project to another.<br />
+<span style="background-color: #FFFF00;">`stdx 不仅会包含高质量且稳健的实现，这些实现对大多数情况来说是“足够好的”（开发者如果有特殊需求可以自由使用第三方包），而且它还将成为所有 Rust 开发者可以使用和掌握的共同基础，而不必在不同项目之间跳转时处理完全随机的、功能相同但 API 各异的包。`</span>
+
+## Funding and other operational challenges(资金和其他运营挑战)
+
+Talk is cheap, developers are expensive, how do you fund this? <br />
+<span style="background-color: #FFFF00;">`空谈容易，开发者成本高，你如何为此提供资金？`</span>
+
+The Rust foundation of course! With such high-profile members I have have absolutely no doubts that the Rust foundation is be able to raise ~$700K / year to pay 5 people to work on the foundations of a programming language used to generate billions of dollars of revenues.<br />
+<span style="background-color: #FFFF00;">`当然是 Rust 基金会！有如此高知名度的成员，我完全相信 Rust 基金会能够每年筹集约 70 万美元，以支付 5 人的薪水来从事一种用于产生数十亿美元收入的编程语言的基础工作。`</span>
+
+Today, Rust developers are not limited by the language itself, which is often considered as the most advanced mainstream programming language. Instead, we are greatly limited by a slowly moving and fragmented ecosystem of libraries. There is no other way around, we need paid developers to work on solving this huge problem.<br />
+<span style="background-color: #FFFF00;">`今天，Rust 开发者并不受限于语言本身，通常认为这是最先进的主流编程语言。相反，我们受到一个缓慢发展且碎片化的库生态系统的极大限制。别无选择，我们需要付费开发者来解决这个巨大问题。`</span>
+
+An extended standard library can't work without the support of the Rust foundation: if it's not official, a lot of people won't trust it and we will be back to the current situation. It needs to live under the rust-lang GitHub organization. <br />
+<span style="background-color: #FFFF00;">`一个扩展的标准库离不开 Rust 基金会的支持：如果没有官方认证，很多人就不会信任它，我们将回到当前的状况。它需要在 rust-lang GitHub 组织下运作。`</span>
+
+## Some Closing Thoughts(一些结束的思考)
+
+After using it for many years, I feel that Rust is currently not sustainable: too much energy is wasted by everybody fighting an (increasingly more) fragmented ecosystem.<br />
+<span style="background-color: #FFFF00;">`在使用 Rust 多年后，我觉得它目前不可持续：每个人都在为一个越来越碎片化的生态系统而斗争，浪费了太多精力。`</span>
+
+While it may be a guarantee for your job's security as a developer, it makes little sense for businesses to spend money developing software that will need an ever growing amount of spending just for maintenance. Thus, smart decision makers will choose other programming languages. <br />
+<span style="background-color: #FFFF00;">`虽然这可能为作为开发者的你提供工作安全保障，但对企业来说，花钱开发需要不断增加维护支出的软件并没有多大意义。因此，聪明的决策者会选择其他编程语言。`</span>
+
+Rust's current trajectory is making its code a liability for businesses that are not Big Tech. What if instead we work together to make it a worthy investment for everyone? <br />
+<span style="background-color: #FFFF00;">`Rust 目前的发展轨迹使其代码成为非大型科技公司的一种负担。如果我们一起努力，使其成为对所有人都值得投资的项目，情况会如何呢？`</span>
+
+Do you feel that a career upgrade is long-awaited? Take a look at my book Black Hat Rust where you will learn production-grade Rust, offensive security and applied cryptography.<br />
+<span style="background-color: #FFFF00;">`你觉得职业升级早已迫在眉睫吗？请查看我的书《Black Hat Rust》，在这里你将学习到生产级 Rust、攻击性安全和应用密码学。`</span>
+
 <style>
   .tooltip {
     position: relative;
