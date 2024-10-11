@@ -8,6 +8,10 @@ outline: deep
 Rust developers are stuck in an endless hamster wheel where every month / week there is a new best way to do something, and the previous way is now deprecated, kind of like in the frontend development world with the weekly hottest JavaScript framework.<br />
 <span style="background-color: #FFFF00;">`Rust 开发者陷入了一个无休止的轮回，每个月或每周都有一种新的最佳方法出现，而之前的方法现在被弃用，这种情况就像前端开发世界中每周都有热门 JavaScript 框架一样。`</span>
 
+<p>
+  <image src="/all-my-life/assets/images/2024/10/hamster_wheel.jpg" style="margin-left:auto;margin-right:auto;" />
+</p>
+
 The time has come for Rust to graduate from a shadow employment program in Big Tech companies to a programming language empowering the masses of engineers (and not just "programmers") wanting to build efficient and robust sfotware. <br />
 <span style="background-color: #FFFF00;">`是时候让 Rust 从大型科技公司的`
 <span class="tooltip">`影子就业计划`<span class="tooltiptext">指的是一种非正式或间接的工作安排，通常是指员工在没有正式雇佣关系的情况下参与某种工作或项目。在这个上下文中，指的是 Rust 作为一种编程语言在大型科技公司内部使用，但并未被广泛推广或充分利用，像是处于一种不显眼的状态。它暗示 Rust 还没有得到应有的认可和应用，尽管它有很大的潜力。</span></span>
@@ -15,29 +19,65 @@ The time has come for Rust to graduate from a shadow employment program in Big T
 </span>
 
 What crypto library should we use? ring, RustCrypto, rust-crypto (don't use it!), boring, aws-lc-s or openssl? <br />
-<span style="background-color: #FFFF00;">`我们应该使用哪个加密库？ring、RustCrypto、rust-crypto（不要使用它！）、boring、aws-lc-s 还是 openssl？`</span>
+<span style="background-color: #FFFF00;">我们应该使用哪个加密库？[ring](https://crates.io/crates/ring)、[RustCrypto](https://github.com/RustCrypto)、[rust-crypto](https://github.com/DaGenix/rust-crypto)（不要使用它！）、[boring](https://crates.io/crates/boring)、[aws-lc-rs](https://crates.io/crates/aws-lc-rs) 还是 [openssl](https://crates.io/crates/openssl)？</span>
+
+<p>
+  <image src="/all-my-life/assets/images/2024/10/ring-crate-info.jpg" style="margin-left:auto;margin-right:auto;" />
+</p>
+
+<p>
+  <image src="/all-my-life/assets/images/2024/10/rust-crypto-crate-info.jpg" style="margin-left:auto;margin-right:auto;" />
+</p>
+
+<p>
+  <image src="/all-my-life/assets/images/2024/10/OpenSSL-crate-info.jpg" style="margin-left:auto;margin-right:auto;" />
+</p>
+
+> **小知识点:**
+> "bindings" 是指 绑定，通常用于描述编程语言与库或底层系统之间的接口。<br />
+> 具体来说，在 OpenSSL 项目中，"bindings" 通常表示通过某种方式将 OpenSSL 库的功能暴露给某种编程语言或框架。例如，OpenSSL 本身是用 C 语言编写的，但如果你希望在 Rust、Python 等其他编程语言中使用它，就需要有对应的“bindings”来桥接这些语言与 OpenSSL。这样，开发者可以在他们喜欢的编程语言中调用 OpenSSL 的加密功能，而不需要直接处理 C 语言的代码。
+> 换句话说，bindings 是编程语言与库之间的“桥梁”，使开发者能够在更高层次的语言中调用低层次库的功能。
 
 Which HTTP framework? actix-web, axum, dropshot or hyper? <br />
 <span style="background-color: #FFFF00;">`我们应该使用哪个 HTTP 框架？actix-web、axum、dropshot 还是 hyper？`</span>
 
 What about a time library? time, chrono or jiff (how I'm even supposed to find this one)? <br />
-<span style="background-color: #FFFF00;">`我们应该使用哪个时间库？time、chrono 还是 jiff（我应该如何找到这个库）？`</span>
+<span style="background-color: #FFFF00;">`我们应该使用哪个时间库？time、chrono 还是 jiff`</span>
 
 You get it, if you are not constantly following the latest news, your code is already technical debt before it's even written. Fragmentation is exhausting. <br />
-<span style="background-color: #FFFF00;">`你明白了，如果你不持续关注最新消息，你的代码在写之前就已经成为技术债务了。碎片化真让人疲惫。`</span>
+<span style="background-color: #FFFF00;">`如果你不持续关注最新消息，你的代码在写之前就已经存在技术债务了。不知道选择哪个更好, 让人疲惫。`</span>
 
 I just looked at the dependencies of a medium-sized project I'm working on, and we have 5+ (!) different crpyto libraries: 2 different versions of ring, aws-lc-rs, boring, and various libraries from RustCrypto. All of this because our various dependencies have picked a different one for their own cryptographic usage. This is insane, first because it introduces a lot of supply chain attack entry points, but also because there is no way that we will audit all of them, and only a aws-lc-rs and boring have an FIPS-validated mode. <br />
-<span style="background-color: #FFFF00;">`我刚查看了我正在进行的一个中型项目的依赖项，发现我们有 5 个以上（！）不同的加密库：2 个不同版本的 ring、aws-lc-rs、boring 以及来自 RustCrypto 的各种库。所有这一切都是因为我们的不同依赖项为各自的加密使用选择了不同的库。这真是疯狂，首先因为这引入了许多供应链攻击的入口点，其次因为我们根本无法审核所有这些库，只有 aws-lc-rs 和 boring 有经过 `<span class="tooltip">`FIPS 验证的模式。`<span class="tooltiptext">FIPS 验证的模式是指符合《联邦信息处理标准》（FIPS，Federal Information Processing Standards）的加密模块或系统。FIPS 是由美国国家标准与技术研究院（NIST）制定的标准，旨在确保政府和相关机构使用的加密技术是安全和可靠的。通过 FIPS 认证的加密模块意味着它们经过严格的测试和评估，符合特定的安全要求。因此，许多组织，特别是政府机构，通常要求使用 FIPS 认证的加密技术。</span></span></span>
+<span style="background-color: #FFFF00;">`查看了正在进行的一个中型项目的依赖项，发现我们有 5 个以上不同的加密库：2 个不同版本的 ring, aws-lc-rs、boring 以及来自 RustCrypto 的各种库。所有这一切都是因为我们的不同依赖项为各自的加密使用选择了不同的库。这真是疯狂，首先因为这引入了许多`<span class="tooltip">`供应链攻击`<span class="tooltiptext">文中提到的项目中使用了多个不同的加密库，这就形成了一个复杂的依赖链。每个库及其所依赖的库都是供应链的一部分。如果这些库中有一个存在漏洞或被恶意修改，那么整个项目的安全性都会受到影响。
+文中特别提到供应链攻击的威胁：依赖库的多样性和复杂性增加了攻击面，尤其是当开发者使用多个未经严格审查的外部依赖时，很难保证所有的库都是安全的。</span></span>`的入口点，其次因为我们根本无法审核所有这些库，只有 aws-lc-rs 和 boring 有经过 `<span class="tooltip">`FIPS 验证的模式。`<span class="tooltiptext">FIPS 验证的模式是指符合《联邦信息处理标准》（FIPS，Federal Information Processing Standards）的加密模块或系统。FIPS 是由美国国家标准与技术研究院（NIST）制定的标准，旨在确保政府和相关机构使用的加密技术是安全和可靠的。通过 FIPS 认证的加密模块意味着它们经过严格的测试和评估，符合特定的安全要求。因此，许多组织，特别是政府机构，通常要求使用 FIPS 认证的加密技术。</span></span></span>
 
 ## The status quo is deplorable.(现状令人堪忧。)
 
 In a recent analysis, Adam Harvey found that among the 999 most popular crates on crates.io, around 17% contained code that didn't match their code repository. <br />
-<span style="background-color: #FFFF00;">`在最近的一项分析中，亚当·哈维发现，在 crates.io 上最受欢迎的 999 个 crate 中，约有 17% 的代码与它们的代码库不匹配。`</span>
+<span style="background-color: #FFFF00;">`在最近的一项分析中，亚当·哈维发现，在 crates.io 上最受欢迎的 999 个 crate 中，发现大约 17% 的 crate 中的代码与它们的代码库（repository）中的代码不匹配`</span>
 
 17%!
 
 Let me rephrase this, 17% of the most popular Rust packages contain code that virtually nobody knows what it does (I can't imagine about the long tail which receives less attention).  <br />
-<span style="background-color: #FFFF00;">`让我换句话说，17% 的最受欢迎的 Rust 包含有几乎没有人知道其作用的代码（我无法想象那些关注度较低的包会怎样）。`</span>
+<span style="background-color: #FFFF00;">`让我换句话说，17% 的最受欢迎的 crate 包含有几乎没有人知道其作用的代码（我无法想象那些关注度较低的包会怎样）。`</span>
+
+> **扩展解读**
+> 这个 "不匹配" 可能意味着以下几种情况：<br />
+> 1、发布的代码和源代码库中的代码不同：
+> - 这些 crate 在发布到 crates.io（Rust 的包管理平台）时，代码可能经过了修改，但这些修改并没有反映在代码库中。这意味着开发者在检查源码时，看到的和实际使用的版本不一致。
+
+> 2、未公开的变更：
+> - 一些依赖库可能在发布时加入了一些变更或修复，但这些变更并未记录或同步到公开的代码库。这种情况让其他开发者难以审查和信任这些 crate，因为他们无法确认实际使用的代码是否安全。
+
+> 3、潜在的供应链攻击风险：
+> - 如果代码不匹配，那么这可能为供应链攻击提供了机会。例如，攻击者可以篡改发布到 crates.io 的代码，注入恶意代码，而开发者在查看代码库时却看不到这些恶意代码。这会大大增加项目被攻击的风险。
+
+> 17% 这个数据说明了什么？
+> - 这意味着在 Rust 生态系统中，几乎五分之一的流行依赖库存在代码不一致的问题。这样的不一致让依赖这些库的开发者和项目面临着巨大的安全风险，因为他们无法完全信任或审查这些库的真实代码。
+> - 因此，这个 17% 的数字突显了当前供应链安全问题的严重性——开发者使用的依赖库可能并不像他们想象中那样透明和可信。
+
+> 总结：
+> - "17% 的 crate 代码与代码库不匹配" 表示有将近五分之一的 Rust 依赖库中，发布到 crates.io 的代码与其在公共代码库中展示的代码不同。这反映了 Rust 生态系统中存在的供应链安全隐患，让开发者难以完全信任他们所使用的依赖库。
 
 Letting "the community build the packages" is literally promoting xkcd 2347 as the official policy. It's a meme intended to make us realize that something is wrong with our current approch to building software, not a a doctrine to build secure and reliable software. <br />
 <span style="background-color: #FFFF00;">`让“社区来构建包”简直是在将`<span class="tooltip">`xkcd 2347` <span class="tooltiptext">xkcd 2347 是一个漫画，标题为“Dependency”，描绘了一个复杂的软件依赖关系图，强调了软件包之间互相依赖的混乱和不确定性。这个漫画旨在讽刺当前软件开发中存在的依赖管理问题，尤其是当开发者将过多的信任寄托在社区维护的包时。通过提到这个漫画，作者意在表达对当前软件构建方式的不满，认为仅仅依靠社区构建包是不够的。</span></span>`作为官方政策。这是一个旨在让我们意识到当前构建软件的方法存在问题的梗，而不是建立安全和可靠软件的教义。`</span>
