@@ -116,10 +116,6 @@ export default defineConfig({
           text: '健康',
           items: [
             { text: '健康', link: '/health/' },
-            { text: '健康', link: '/health/' },
-            { text: '健康', link: '/health/' },
-            { text: '健康', link: '/health/' },
-            { text: '健康', link: '/health/' },
           ]
         },
       ],
