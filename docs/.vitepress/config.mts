@@ -22,11 +22,7 @@ export default defineConfig({
         {
           text: '健康',
           items: [
-            { text: '健康', link: '/health/' },
-            { text: '健康', link: '/health/' },
-            { text: '健康', link: '/health/' },
-            { text: '健康', link: '/health/' },
-            { text: '健康', link: '/health/' },
+            { text: '每日锻炼社群', link: '/health/每日锻炼社群.md' },
           ]
         },
       ],
@@ -101,24 +97,16 @@ export default defineConfig({
               ]
             },
             {
-              text: '量化交易',
+              text: 'Rust操作FFmpeg',
               collapsed: true,
               items: [
-                { text: 'Rust', link: '/study/rust/' }
+                { text: '第 1 讲: Rust 如何调用 C 函数', link: '/study/rust-ffmpeg/1' },
+                { text: '第 2 讲: 介绍Rust如何找到动态库', link: '/study/rust-ffmpeg/2' }
               ]
             },
           ]
         },
-      ],
-      // 副业
-      '/bywork/': [
-        {
-          text: '健康',
-          items: [
-            { text: '健康', link: '/health/' },
-          ]
-        },
-      ],
+      ]
     },
 
     socialLinks: [

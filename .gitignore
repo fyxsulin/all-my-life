@@ -2,3 +2,4 @@ docs/.vitepress/dist/
 .DS_Store
 node_modules
 docs/.vitepress/cache
+docs/bywork/
